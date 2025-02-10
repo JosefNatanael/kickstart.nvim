@@ -948,6 +948,30 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  {
+    'johmsalas/text-case.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    config = function()
+      require('textcase').setup {}
+      require('telescope').load_extension 'textcase'
+    end,
+    keys = {
+      'ga', -- Default invocation prefix
+      { 'ga.', '<cmd>TextCaseOpenTelescope<CR>', mode = { 'n', 'x' }, desc = 'Telescope' },
+    },
+    cmd = {
+      -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+      'Subs',
+      'TextCaseOpenTelescope',
+      'TextCaseOpenTelescopeQuickChange',
+      'TextCaseOpenTelescopeLSPChange',
+      'TextCaseStartReplacingCommand',
+    },
+    -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+    -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+    -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+    lazy = false,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
